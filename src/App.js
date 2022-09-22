@@ -7,18 +7,16 @@ import {MarcaView} from './components/marcas/MarcaView';
 import {TipoView} from './components/tipos/TipoView';
 import {UsuarioView} from './components/usuarios/UsuarioView';
 
-const App = () => {
+export const App = () => {
     return <Router>
                 <Header/>
-                <switch>
+                <Switch>
                     <Route exact path='/' component={InventarioView} />
                     <Route exact path='/usuarios' component={UsuarioView}/>
                     <Route exact path='/marcas' component={MarcaView}/>
                     <Route exact path='/estados' component={EstadoView}/>
                     <Route exact path='/tipos' component={TipoView}/>
-                    <Redirect to='/' />
-                </switch>
+                    <Redirect to='/'/>
+                </Switch>
             </Router>
 }
-
-export { App }
