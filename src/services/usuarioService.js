@@ -5,8 +5,8 @@ export const getUsuarios = () => {
         headers:{
             'Content-type' : 'application/json'
         }
-    })
-}
+    });
+};
 
 export const postUsuarios = (data) => {
     return axiosInstance.post('usuario', data, {

@@ -1,6 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getUsuarios } from '../../services/usuarioService';
+import { getEstados } from '../../services/estadoService';
+import { getMarcas } from '../../services/marcaService';
+import { getTipos } from '../../services/tipoService';
 
 export const InventarioCrear = ({ handleOpenModal }) => {
+
+  const [usuarios, setUsuarios]  = useState([]);
+  const [marcas, setMarcas] = useState([]);
+  const [tipos, setTipos] = useState([]);
+  const [estados, setEstados]= useState([]);
+
+  const listarUsuarios = async () => {
+    try {
+      const { data } = await getUsuarios();
+      setUsuarios(data);
+    } catch (error) {
+      console.log("ocurrio un error");
+    }
+  }
+  useEffect(() => {
+    listarUsuarios();
+    console.log(getUsuarios());
+  }, []);
+
+  const listarMarcas = async () => {
+    try {
+      const { data } = await getMarcas();
+      setMarcas(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+  listarMarcas();
+  }, []);
+
+  const listarEstados = async () => {
+    try {
+      const { data } = await getEstados();
+      setEstados(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+  listarEstados();
+  }, []);
+  const listarTipos = async () => {
+    try {
+      const { data } = await getTipos();
+      setTipos(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+  listarTipos();
+  }, []);
+
+
   return (
     <div className='sidebar'>
       <div className='container-fluid'>
@@ -67,10 +126,12 @@ export const InventarioCrear = ({ handleOpenModal }) => {
             </div>
             <div className='col'>
               <div className="mb-3">
-                <label for="usuarioid" className="form-label">Usuario</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>-- elegir usuario --</option>
-                  <option value="1">usuarioService</option>
+                <label className="form-label">Usuario</label>
+                <select className="form-select">
+                  <option selected> --escoge un usuario--</option>
+                  {usuarios.map ((usuario) => {
+                      return (<option key={usuario._id} value={usuario._id}>{usuario.nombre}</option>)
+                    })}
                 </select>
               </div>
             </div>
@@ -79,19 +140,34 @@ export const InventarioCrear = ({ handleOpenModal }) => {
             <div className='col'>
               <div className="mb-3">
                 <label for="marcaid" className="form-label">Marca</label>
-                <input type="text" name='marca' className="form-control" id="marcaid" />
+                <select className="form-select">
+                  <option selected> --escoge una marca--</option>
+                  {marcas.map ((marca) => {
+                      return (<option key={marca._id} value={marca._id}>{marca.nombre}</option>)
+                    })}
+                </select>
               </div>
             </div>
             <div className='col'>
               <div className="mb-3">
                 <label for="tipoequipoid" className="form-label">Tipo Equipo</label>
-                <input type="text" name='tipoequipo' className="form-control" id="tipoequipoid" />
+                <select className="form-select">
+                  <option selected> --escoge un tipo--</option>
+                  {tipos.map ((tipo) => {
+                      return (<option key={tipo._id} value={tipo._id}>{tipo.nombre}</option>)
+                    })}
+                </select>
               </div>
             </div>
             <div className='col'>
               <div className="mb-3">
                 <label for="estadoequipoid" className="form-label">Estado Equipo</label>
-                <input type="text" name='estadoequipo' className="form-control" id="estadoequipoid" />
+                <select className="form-select">
+                  <option selected> --escoge un estado--</option>
+                  {estados.map ((estado) => {
+                      return (<option key={estado._id} value={estado._id}>{estado.nombre}</option>)
+                    })}
+                </select>
               </div>
             </div>
             <div className='col'>
