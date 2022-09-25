@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getInventarios } from '../../services/inventarioService';
 import { InventarioCrear } from './InventarioCrear';
+import {InventarioCard} from './InventarioCard';
+import Swal from 'sweetalert2';
 
 export const InventarioView = () => {
 
@@ -9,10 +11,19 @@ export const InventarioView = () => {
 
   const listarInventarios = async () => {
     try {
+      Swal.fire({
+        allowOutsideClick: false,
+        title: 'Cargando....',
+        text: 'Por favor espere mientras se crea el nuevo activo',
+        timer: 5000//milisegundos
+      });
+      Swal.showLoading();
       const { data } = await getInventarios();
       setInventarios(data);
+      Swal.close();
     } catch (error) {
       console.log('ocurrió un error')
+      Swal.close();
     }
   };
 
@@ -28,26 +39,13 @@ export const InventarioView = () => {
     <div className="container">
       <div className="mt-2 mb-2 row row-cols-1 row-cols-md-4 g-4">
         {
-          inventarios.map((invent) => {
-            return (
-              <div className="col" key={invent._id}>
-                <div className="card">
-                  <img src={invent.foto} className="card-img-top" alt={invent.foto} />
-                  <div className="card-body">
-                    <h5 className="card-title">{`${invent.descripcion}`}</h5>
-                    <p className="card-text">{`Serial: ${invent.serial}`}</p>
-                    <p className="card-text">{`Marca: ${invent.marca.nombre}`}</p>
-                    <p className="card-text">{`Precio: ${invent.precio}`}</p>
-                    <p className="card-text">Ver más...</p>
-                  </div>
-                </div>
-              </div>
-            )
+          inventarios.map((inventario) => {
+            return <InventarioCard key={inventario._id} inventario={inventario}/>
           })
         }
       </div>
         {
-        openModal ? <InventarioCrear handleOpenModal={handleOpenModal}/> :
+        openModal ? <InventarioCrear handleOpenModal={handleOpenModal} listarInventarios={listarInventarios}/> :
         <button className="btn btn-primary btnplus" onClick={handleOpenModal}>
           <i className="fa-solid fa-plus"></i>
         </button>

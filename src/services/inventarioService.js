@@ -8,6 +8,16 @@ export const getInventarios = () => {
     })
 }
 
+
+export const getInventariosById = (inventarioId) => {
+    return axiosInstance.get(`inventario/${inventarioId}`, {
+        headers:{
+            'Content-type' : 'application/json'
+        }
+    })
+}
+
+
 export const postInventarios = (data) => {
     return axiosInstance.post('inventario', data, {
         headers:{
