@@ -3,7 +3,7 @@ import { getUsuarios } from '../../services/usuarioService';
 import { getEstados } from '../../services/estadoService';
 import { getMarcas } from '../../services/marcaService';
 import { getTipos } from '../../services/tipoService';
-import { postInventarios} from '../../services/inventarioService'
+import { postInventarios} from '../../services/inventarioService';
 import Swal from 'sweetalert2';
 
 export const InventarioCrear = ({ handleOpenModal, listarInventarios }) => {
@@ -12,6 +12,7 @@ export const InventarioCrear = ({ handleOpenModal, listarInventarios }) => {
   const [marcas, setMarcas] = useState([]);
   const [tipos, setTipos] = useState([]);
   const [estados, setEstados]= useState([]);
+
   const [valoresform, setValoresform] = useState({});
   const {serial='', modelo='', descripcion='', color='', foto='', fechaCompra='', precio='', usuario, marca, estadoEquipo, tipoEquipo} = valoresform;
 
@@ -252,9 +253,9 @@ export const InventarioCrear = ({ handleOpenModal, listarInventarios }) => {
               <div className="mb-3">
                 <label for="marcaid" className="form-label">Marca</label>
                 <select
+                  onChange={(e) => handleOnChange(e)}
                   required
                   className="form-select"
-                  onChange={(e) => handleOnChange(e)}
                   name='marca'
                   value={marca}>
                   <option selected> --escoge una marca--</option>

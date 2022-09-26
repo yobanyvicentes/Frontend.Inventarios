@@ -8,6 +8,14 @@ export const getUsuarios = () => {
     });
 };
 
+export const getUsuarioById = (usuarioId) => {
+    return axiosInstance.get(`usuario/${usuarioId}`, {
+        headers:{
+            'Content-type' : 'application/json'
+        }
+    })
+}
+
 export const postUsuarios = (data) => {
     return axiosInstance.post('usuario', data, {
         headers:{

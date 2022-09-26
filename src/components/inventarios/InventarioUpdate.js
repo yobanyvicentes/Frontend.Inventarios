@@ -145,7 +145,7 @@ export const InventarioUpdate = () => {
                 <div className='card-body'>
                     <div className='row'>
                         <div className='col-md-3'>
-                            <img src={inventario?.foto} />
+                            <img src={inventario?.foto} alt="none"/>
                         </div>
                         <div className='col-md-9'>
                             <form

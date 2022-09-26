@@ -15,7 +15,7 @@ export const InventarioView = () => {
         allowOutsideClick: false,
         title: 'Cargando....',
         text: 'Por favor espere mientras se crea el nuevo activo',
-        timer: 5000//milisegundos
+        timer: 2000//milisegundos
       });
       Swal.showLoading();
       const { data } = await getInventarios();
@@ -27,13 +27,13 @@ export const InventarioView = () => {
     }
   };
 
-  const handleOpenModal = () => {
-    setOpenModal(!openModal);
-  };
-
   useEffect(() => {
     listarInventarios();
   }, []);
+
+  const handleOpenModal = () => {
+    setOpenModal(!openModal);
+  };
 
   return (
     <div className="container">
