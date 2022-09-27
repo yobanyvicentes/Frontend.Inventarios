@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
-import { postUsuarios } from '../../services/usuarioService';
+import { postTipoEquipos } from '../../services/tipoEquipoService';
 import Swal from 'sweetalert2';
 
-export const UsuarioCrear = ({ listarUsuarios }) => {
+export const TipoEquipoCrear = ({ listarTipoEquipos }) => {
 
     const [valoresform, setValoresform] = useState({});
-    const { nombre = '', email = '', estado = '' } = valoresform;
+    const { nombre = '', estado = '' } = valoresform;
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        const usuarioModel = { nombre, email, estado };
+        const tipoEquipoModel = { nombre, estado };
         try {
             Swal.fire({
                 allowOutsideClick: false, title: 'Cargando....', text: 'Por favor espere', timer: 2000//milisegundos
             });
-            const { data } = await postUsuarios(usuarioModel);
+            const { data } = await postTipoEquipos(tipoEquipoModel);
             console.log(data);
-            listarUsuarios();
+            listarTipoEquipos();
         } catch (error) {
             Swal.fire('Error', 'hubo un error', 'error')
-            console.log("error al crear el usuario");
+            console.log("error al crear el tipoEquipo");
         }
     }
 
@@ -39,23 +39,13 @@ export const UsuarioCrear = ({ listarUsuarios }) => {
                     }
                 >
                     <div className='row' te>
-                        <h5>Crear Usuario</h5>
+                        <h5>Crear TipoEquipo</h5>
                     </div>
                     <div className='row'>
                         <div className='col-md-4'>
                             <div className='mb-3'>
                                 <label className='form-label' for='nombreid'>Nombre</label>
                                 <input className='form-control' type="text" name="nombre" value={nombre} id='nombreid' required
-                                    onChange={(e) => {
-                                        handleOnChange(e);
-                                    }}
-                                />
-                            </div>
-                        </div>
-                        <div className='col-md-4'>
-                            <div className='mb-3'>
-                                <label className='form-label' for='emailid'>Email</label>
-                                <input className='form-control' type="text" name="email" value={email} id='emailid' required
                                     onChange={(e) => {
                                         handleOnChange(e);
                                     }}

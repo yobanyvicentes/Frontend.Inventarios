@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
-import { putUsuarios, getUsuarioById } from '../../services/usuarioService';
+import { putMarcas, getMarcaById } from '../../services/marcaService';
 import { Link } from 'react-router-dom';
 
-export const UsuarioUpdate = () => {
+export const MarcaUpdate = () => {
 
-    const { usuarioId = '' } = useParams();
-    const [usuario, setUsuario] = useState({});
+    const { marcaId = '' } = useParams();
+    const [marca, setMarca] = useState({});
 
     const [valoresform, setValoresform] = useState({});
-    const { nombre = '', email = '', estado = '' } = valoresform;
+    const { nombre = '', estado = '' } = valoresform;
 
-    const getUsuario = async () => {
+    const getMarca = async () => {
         try {
             Swal.fire({
                 allowOutsideClick: false,
@@ -22,43 +22,42 @@ export const UsuarioUpdate = () => {
             });
             Swal.showLoading();
             Swal.close();
-            const { data } = await getUsuarioById(usuarioId);
-            setUsuario(data);
+            const { data } = await getMarcaById(marcaId);
+            setMarca(data);
         } catch (error) {
             Swal.close();
             console.log(error);
         }
     }
+
     useEffect(() => {
-        getUsuario();
-    }, [usuarioId]);
+        getMarca();
+    }, [marcaId]);
 
     useEffect(() => {
         setValoresform({
-            nombre: usuario.nombre,
-            email: usuario.email,
-            estado: usuario.estado,
+            nombre: marca.nombre,
+            estado: marca.estado,
         });
-    }, [usuario])
+    }, [marca])
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        const usuarioModel = {
+        const marcaModel = {
             nombre,
-            email,
-            estado
+            estado,
         }
         try {
-            console.log(usuarioModel);
+            console.log(marcaModel);
             Swal.fire({
                 allowOutsideClick: false, title: 'Cargando....', text: 'Por favor espere', timer: 2000//milisegundos
             });
-            const { data } = await putUsuarios(usuarioId, usuarioModel);
+            const { data } = await putMarcas(marcaId, marcaModel);
             console.log(data);
             Swal.close();
         } catch (error) {
             Swal.fire('Error', 'hubo un error...', 'error')
-            console.log("error al crear el usuario");
+            console.log("error al crear el marca");
         }
     }
 
@@ -71,7 +70,7 @@ export const UsuarioUpdate = () => {
         <div className='container-fluid'>
             <div className='card mt-3 mb-2'>
                 <div className='card-header'>
-                    <h5>Usuarios</h5>
+                    <h5>Marcas</h5>
                 </div>
                 <div className='card-body'>
                     <div className='row'>
@@ -84,23 +83,13 @@ export const UsuarioUpdate = () => {
                                 }
                             >
                                 <div className='row' te>
-                                    <h5>Actualizar Usuario</h5>
+                                    <h5>Actualizar Marca</h5>
                                 </div>
                                 <div className='row'>
                                     <div className='col-md-4'>
                                         <div className='mb-3'>
                                             <label className='form-label' for='nombreid'>Nombre</label>
                                             <input className='form-control' type="text" name="nombre" value={nombre} id='nombreid' required
-                                                onChange={(e) => {
-                                                    handleOnChange(e);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className='col-md-4'>
-                                        <div className='mb-3'>
-                                            <label className='form-label' for='emailid'>Email</label>
-                                            <input className='form-control' type="text" name="email" value={email} id='emailid' required
                                                 onChange={(e) => {
                                                     handleOnChange(e);
                                                 }}
@@ -127,7 +116,7 @@ export const UsuarioUpdate = () => {
                                         <button className='btn btn-primary' type="onSubmit">1-Guardar</button>
                                     </div>
                                     <div className='col-md-3'>
-                                        <Link to={`../../usuarios`}>
+                                        <Link to={`../../marcas`}>
                                         <button className='btn btn-success' type="onSubmit">2-Ver Datos Actualizados</button>
                                         </Link>
                                     </div>

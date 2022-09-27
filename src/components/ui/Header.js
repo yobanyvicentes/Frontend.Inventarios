@@ -24,7 +24,7 @@ export const Header = () => {
               <NavLink className="nav-link" activeClassName='Active' exact aria-current="page" to="/tipos">Tipos</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" activeClassName='Active' exact aria-current="page" to="/estados">Estados</NavLink>
+              <NavLink className="nav-link" activeClassName='Active' exact aria-current="page" to="/estadoEquipos">Estados</NavLink>
             </li>
           </ul>
         </div>

@@ -8,6 +8,14 @@ export const getMarcas = () => {
     })
 }
 
+export const getMarcaById = (marcaId) => {
+    return axiosInstance.get(`marca/${marcaId}`, {
+        headers:{
+            'Content-type' : 'application/json'
+        }
+    })
+}
+
 export const postMarcas = (data) => {
     return axiosInstance.post('marca', data, {
         headers:{

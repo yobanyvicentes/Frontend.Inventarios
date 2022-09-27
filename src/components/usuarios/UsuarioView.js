@@ -57,7 +57,7 @@ export const UsuarioView = () => {
                     usuarios.map((usuario) => {
                       return (
                         <tr key={usuario._id}>
-                          <th className="index" value='index'>{1 + usuarios.indexOf(usuario)} </th>
+                          <th className="col-md-1" value='index'>{1 + usuarios.indexOf(usuario)} </th>
                           <td className="col-md-2">{usuario.nombre}</td>
                           <td className="col-md-2">{usuario.email}</td>
                           <td className="col-md-1">{usuario.estado}</td>

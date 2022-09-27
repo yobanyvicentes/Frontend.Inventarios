@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getUsuarios } from '../../services/usuarioService';
-import { getEstados } from '../../services/estadoService';
+import { getEstadoEquipos } from '../../services/estadoEquipoService';
 import { getMarcas } from '../../services/marcaService';
-import { getTipos } from '../../services/tipoService';
+import { getTipoEquipos } from '../../services/tipoEquipoService';
 import { postInventarios} from '../../services/inventarioService';
 import Swal from 'sweetalert2';
 
@@ -43,7 +43,7 @@ export const InventarioCrear = ({ handleOpenModal, listarInventarios }) => {
 
   const listarEstados = async () => {
     try {
-      const { data } = await getEstados();
+      const { data } = await getEstadoEquipos();
       setEstados(data);
     } catch (error) {
       console.log(error);
@@ -55,7 +55,7 @@ export const InventarioCrear = ({ handleOpenModal, listarInventarios }) => {
 
   const listarTipos = async () => {
     try {
-      const { data } = await getTipos();
+      const { data } = await getTipoEquipos();
       setTipos(data);
     } catch (error) {
       console.log(error);

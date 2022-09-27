@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { MarcaCrear } from './MarcaCrear';
-import { getMarcas } from '../../services/marcaService';
+import { EstadoEquipoCrear } from './EstadoEquipoCrear';
+import { getEstadoEquipos } from '../../services/estadoEquipoService';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
-export const MarcaView = () => {
+export const EstadoEquipoView = () => {
 
-  const [marcas, setMarcas] = useState([]);
+  const [estadoEquipos, setEstadoEquipos] = useState([]);
 
-  const listarMarcas = async () => {
+  const listarEstadoEquipos = async () => {
     try {
       Swal.fire({
         allowOutsideClick: false,
@@ -17,8 +17,8 @@ export const MarcaView = () => {
         timer: 2000//milisegundos
       });
       Swal.showLoading();
-      const { data } = await getMarcas();
-      setMarcas(data);
+      const { data } = await getEstadoEquipos();
+      setEstadoEquipos(data);
       Swal.close();
     } catch (error) {
       console.log('ocurrió un error')
@@ -27,17 +27,17 @@ export const MarcaView = () => {
   };
 
   useEffect(() => {
-    listarMarcas();
+    listarEstadoEquipos();
   }, []);
 
   return (
     <div className='container-fluid'>
       <div className='card mt-3 mb-2'>
         <div className='card-header'>
-          <h5>Marcas</h5>
+          <h5>EstadoEquipos</h5>
         </div>
         <div className='card-body'>
-          <MarcaCrear listarMarcas={listarMarcas} />
+          <EstadoEquipoCrear listarEstadoEquipos={listarEstadoEquipos} />
           <div className='row mt-5'>
             <div className='col'>
               <table className="table">
@@ -53,16 +53,16 @@ export const MarcaView = () => {
                 </thead>
                 <tbody>
                   {
-                    marcas.map((marca) => {
+                    estadoEquipos.map((estadoEquipo) => {
                       return (
-                        <tr key={marca._id}>
-                          <th className="col-md-2" value='index'>{1 + marcas.indexOf(marca)} </th>
-                          <td className="col-md-2">{marca.nombre}</td>
-                          <td className="col-md-1">{marca.estado}</td>
-                          <td className="col-md-3">{marca.fechaCreacion}</td>
-                          <td className="col-md-3">{marca.fechaActualizacion}</td>
+                        <tr key={estadoEquipo._id}>
+                          <th className="col-md-2" value='index'>{1 + estadoEquipos.indexOf(estadoEquipo)} </th>
+                          <td className="col-md-2">{estadoEquipo.nombre}</td>
+                          <td className="col-md-1">{estadoEquipo.estado}</td>
+                          <td className="col-md-3">{estadoEquipo.fechaCreacion}</td>
+                          <td className="col-md-3">{estadoEquipo.fechaActualizacion}</td>
                           <td className="col-md-1">
-                            <Link to={`marca/edit/${marca._id}`}>
+                            <Link to={`estadoEquipo/edit/${estadoEquipo._id}`}>
                               <button className='btn btn-success'>
                                 editar
                               </button>
@@ -81,4 +81,5 @@ export const MarcaView = () => {
     </div>
   )
 }
+
 
